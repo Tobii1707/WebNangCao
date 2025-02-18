@@ -1,0 +1,344 @@
+/* Thiết lập toàn bộ trang */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    background-color: #f47c7c;
+    color: white;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo a {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.header .search-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.header .search-bar input {
+    padding: 8px;
+    width: 70%;
+    border: 1px solid #ccc;
+}
+
+.header .search-bar button {
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    margin-top: 20px;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Product List */
+.product-list {
+    flex: 1;
+}
+
+.product-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.product-card .price {
+    color: #f47c7c;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.product-card .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-card .add-to-cart, .product-card .view-details {
+    padding: 10px;
+    border: none;
+    background-color: #f47c7c;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.product-card .view-details {
+    background-color: #f47c7c;
+    color: white;
+}
+
+.product-card .add-to-cart:hover, .product-card .view-details:hover {
+    background-color: #f36868;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    background-color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* CSS cho biểu tượng giỏ hàng */
+.cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff6600;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 24px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.cart-icon a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.cart-count {
+    background-color: white;
+    color: #ff6600;
+    border-radius: 50%;
+    padding: 2px 8px;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+/* Custom Button Styles */
+button {
+    padding: 10px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e65c00;
+}
+/* Đăng nhập và Đăng ký */
+.auth-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.auth-form .form-group {
+    margin-bottom: 15px;
+}
+
+.auth-form .form-group label {
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.auth-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.auth-form .form-group input:focus {
+    border-color: #f47c7c;
+    outline: none;
+}
+
+.auth-form .form-group .error {
+    color: red;
+    font-size: 12px;
+}
+
+.auth-form .form-group .error-message {
+    font-size: 14px;
+    color: red;
+    margin-top: 5px;
+}
+
+.auth-form .form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.auth-form .form-actions button {
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.auth-form .form-actions button:hover {
+    background-color: #e65c00;
+}
+
+.auth-form .link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.auth-form .link a {
+    text-decoration: none;
+    color: #f47c7c;
+    font-size: 14px;
+}
+
+.auth-form .link a:hover {
+    text-decoration: underline;
+}
+/* Giữ lại phần CSS trước đó */
+.auth-form .form-group {
+    margin-bottom: 20px;
+}
+.auth-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.auth-form .form-group .error-message {
+    color: red;
+    font-size: 12px;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auth-form button:hover {
+    background-color: #e65c00;
+}
+
+.auth-form .link a {
+    text-decoration: none;
+    color: #ff6600;
+}
+
+.auth-form .link a:hover {
+    text-decoration: underline;
+}
+.logout-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.logout-button:hover {
+    color: #ff6600;
+}
