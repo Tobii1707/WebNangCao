@@ -12,38 +12,29 @@ class CartController extends Controller
     // Thêm sản phẩm vào giỏ hàng
     public function add(Request $request, $productId)
     {
-        // Lấy sản phẩm từ cơ sở dữ liệu
         $product = Product::find($productId);
 
-        if ($product) {
-            // Lấy user hiện tại
-            $userId = Auth::id();
-
-            // Kiểm tra sản phẩm đã có trong giỏ hàng hay chưa
-            $cartItem = CartItem::where('user_id', $userId)
-                ->where('product_id', $productId)
-                ->first();
-
-            if ($cartItem) {
-                // Nếu có, tăng số lượng sản phẩm
-                $cartItem->quantity += $request->input('quantity', 1);
-                $cartItem->save();
-            } else {
-                
-                // Nếu chưa có, tạo mới mục giỏ hàng
-                CartItem::create([
-                    'user_id' => $userId,
-                    'product_id' => $productId,
-                    'quantity' => $request->input('quantity', 1),
-                ]);
-            }
-
-            // Quay lại trang giỏ hàng với thông báo thành công
-            return redirect()->route('cart.index')->with('success', 'Product added to cart.');
+        if (!$product) {
+            return redirect()->route('products.index')->with('error', 'Product not found.');
         }
 
-        // Nếu sản phẩm không tồn tại, quay lại trang sản phẩm với thông báo lỗi
-        return redirect()->route('products.index')->with('error', 'Product not found.');
+        $userId = Auth::id();
+        $cartItem = CartItem::where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->quantity += $request->input('quantity', 1);
+            $cartItem->save();
+        } else {
+            CartItem::create([
+                'user_id' => $userId,
+                'product_id' => $productId,
+                'quantity' => $request->input('quantity', 1),
+            ]);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Product added to cart.');
     }
 
     // Hiển thị giỏ hàng
@@ -51,7 +42,7 @@ class CartController extends Controller
     {
         $userId = Auth::id();
         $cartItems = CartItem::where('user_id', $userId)
-            ->with('product') // Sử dụng quan hệ để lấy thông tin sản phẩm
+            ->with('product')
             ->get();
 
         return view('cart.index', compact('cartItems'));
@@ -71,23 +62,29 @@ class CartController extends Controller
 
     // Cập nhật số lượng sản phẩm trong giỏ hàng
     public function update(Request $request)
-{
-    $userId = Auth::id();
+    {
+        $userId = Auth::id();
 
-    // Lặp qua từng mục giỏ hàng và cập nhật số lượng
-    foreach ($request->input('cart', []) as $cartItemId => $data) {
-        $cartItem = CartItem::where('user_id', $userId)
-            ->where('id', $cartItemId)
-            ->first();
+        foreach ($request->input('cart', []) as $cartItemId => $data) {
+            $cartItem = CartItem::where('user_id', $userId)
+                ->where('id', $cartItemId)
+                ->first();
 
-        if ($cartItem) {
-            // Cập nhật số lượng
-            $cartItem->quantity = $data['quantity'];
-            $cartItem->save();
+            if ($cartItem) {
+                $cartItem->quantity = max(1, (int) $data['quantity']); // Đảm bảo số lượng không nhỏ hơn 1
+                $cartItem->save();
+            }
         }
+
+        return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
     }
 
-    return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
-}
+    // Xóa toàn bộ giỏ hàng
+    public function clear()
+    {
+        $userId = Auth::id();
+        CartItem::where('user_id', $userId)->delete();
 
+        return redirect()->route('cart.index')->with('success', 'Cart cleared successfully!');
+    }
 }
